@@ -1,0 +1,3 @@
+vasya 40
+vaska 100
+vaska 70
