@@ -5,7 +5,11 @@ using namespace std;
 
 int Guess;
 int Total;
-
+/**
+ * Класс Question
+ * объект класса содержит в себе текст вопроса и ответа, правильный ответ, и стоимость вопроса
+ * содержит два метода
+ */
 class Question {
 private:
     string Question_Text;
@@ -23,7 +27,9 @@ public:
 
     void askQuestion();
 };
-
+/**
+ * функция подсчёта количества строк в файле
+ */
 int CountLinesInFile(string filename)
 {
     ifstream fin(filename, ios::in);
@@ -47,6 +53,9 @@ int CountLinesInFile(string filename)
 
     return count;
 }
+/**
+ * переводит содержание тектового файла в массив строк
+ */
 int GetStringsFromFileS(string filename, string** _lines)
 {
     string* lines;
@@ -85,7 +94,9 @@ int GetStringsFromFileS(string filename, string** _lines)
     *_lines = lines;
     return n;
 }
-
+/**
+ * функция вносит массив строк в текстовый файл
+ */
 bool SetStringsToFileS(string filename, string* lines, int count)
 {
     ofstream F(filename);
@@ -101,7 +112,9 @@ bool SetStringsToFileS(string filename, string* lines, int count)
 
     return true;
 }
-
+/**
+ * функция вставляет строку в файл
+ */
 bool InsertStringToFile(string filename, string str, int position)
 {
     int count;
@@ -177,8 +190,8 @@ int main()
         cout << "Good Luck!" << endl;
     }
     else {
-        cout << "Okay Good Bye!" << endl;
-        return 0;
+        cout << "Okay Good Bye!" << endl; 
+        return 0; //завершает работу программы
     }
 
     Question q1;
@@ -191,7 +204,7 @@ int main()
     Question q8;
     Question q9;
     Question q10;
-
+//заносим данные для каждого вопроса
     q1.setValues("Question : ", "Answer 1",
                  "Answer 2", "Answer 3",
                  "Answer 4", 3, 10);
@@ -222,7 +235,7 @@ int main()
     q10.setValues("Question : ", "Answer 1",
                   "Answer 2", "Answer 3",
                   "Answer 4", 3, 10);
-
+//задаём вопросы
     q1.askQuestion();
     q2.askQuestion();
     q3.askQuestion();
@@ -233,11 +246,11 @@ int main()
     q8.askQuestion();
     q9.askQuestion();
     q10.askQuestion();
-
+//выводим итоговый счёт
     cout << "Total Score = " << Total
          << "out of 100" << endl;
 
-
+//подводим итог о победе
     if (Total >= 70) {
         cout << "Congrats you passed the"
              << " quiz!" << endl;
@@ -249,9 +262,14 @@ int main()
         cout << "Better luck next time."
              << endl;
     }
+    /**
+ * подсчитываем количество строк
+ * вносим результат игры в файл
+ * выводим результаты этой и предыдущих игр
+ */
     int nLines = CountLinesInFile("table.txt");
     string filename = "table.txt";
-    string s = Name + " " + to_string(Total);
+    string s = Name + " " + to_string(Total); // создаем строку состоящую из имени и счёта
     bool a=InsertStringToFile(filename, s, nLines);
     string* lines = nullptr;
     int count = GetStringsFromFileS("table.txt", &lines);
@@ -262,7 +280,9 @@ int main()
     }
     return 0;
 }
-
+/**
+ * метод присваивает значения занесённые пользователем
+ */
 void Question::setValues(
         string q, string a1,
         string a2, string a3,
@@ -276,7 +296,11 @@ void Question::setValues(
     Correct_Answer = ca;
     Question_Score = pa;
 }
-
+/**
+ * выводит вопрос и варианты ответов
+ * запрашивает ответ
+ * выводит результат сравнивая с правильным ответом
+ */
 void Question::askQuestion()
 {
     cout << endl;
